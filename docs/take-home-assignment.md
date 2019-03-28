@@ -7,7 +7,8 @@ Here at iRobot, one of the most important things a developer strives for is free
 
 * Create an account on http://food2fork.com 
 * Create a Python executable that accomplishes the following: 
-    * Read in a series of ingredients o When the user has finished entering the ingredients, use those ingredients to search for recipes online
+    * Read in a series of ingredients
+    * When the user has finished entering the ingredients, use those ingredients to search for recipes online
     * Using the most popular recipe that contains all of the supplied ingredients, display to the user which ingredients are missing from the recipe.
 * Upload the solution to GitHub, complete with a readme containing instructions. 
 * We should be able to clone your repository, and run your solution following your instructions, so don't forget to include instructions on any dependencies used. 
