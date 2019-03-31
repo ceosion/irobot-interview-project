@@ -1,0 +1,113 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"launch": {
+		"configurations": [],
+		"compounds": []
+	},
+	"settings": {		
+		"breadcrumbs.enabled": true,
+		"breadcrumbs.symbolPath": "on",
+		"breadcrumbs.filePath": "on",
+		"breadcrumbs.symbolSortOrder": "position",
+		"comments.openPanel": "openOnSessionStart",
+		
+		"editor.insertSpaces": true,
+		"editor.find.autoFindInSelection": true,
+		"editor.find.seedSearchStringFromSelection": true,
+		"editor.links": true,
+		"editor.formatOnPaste": true,
+		"editor.lightbulb.enabled": true,
+		"editor.minimap.enabled": false,
+		"editor.rulers": [
+			80
+		],
+		"editor.tabCompletion": "on",
+		"editor.tabSize": 4,
+		
+		"files.maxMemoryForLargeFilesMB": 4096,
+		"files.autoSave": "onFocusChange",
+		"files.encoding": "utf8",
+		"files.hotExit": "off",
+		"files.insertFinalNewline": true,
+		"files.enableTrash": true,
+		"files.eol": "\n",
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true
+		},
+		"files.watcherExclude": {
+			"**/.git/objects/**": true,
+			"**/.git/subtree-cache/**": true,
+			"**/node_modules/**": true,
+			"**/.vscode/extensions/**": true,
+			"**/.vscode/user-data/**": true
+		},
+		
+		"git.showPushSuccessNotification": true,
+		"git.inputValidation": "off",
+		"git.detectSubmodules": true,
+		"git.autorefresh": true,
+		"git.alwaysShowStagedChangesResourceGroup": true,
+		"git.autoRepositoryDetection": true,
+		"git.autofetch": true,
+		"git.autofetchPeriod": 360, // seconds
+		"git.enableSmartCommit": true,
+		"git.postCommitCommand": "sync",
+		"git.autoStash": true,
+		"git.fetchOnPull": true,
+
+		"material-icon-theme.showWelcomeMessage": false,
+		"material-icon-theme.hidesExplorerArrows": true,
+		"material-icon-theme.opacity": 0.10,
+		
+		"merge-conflict.autoNavigateNextConflict.enabled": true,
+		"merge-conflict.codeLens.enabled": true,
+		"merge-conflict.decorators.enabled": true,
+		
+		"search.location": "panel",
+		"search.collapseResults": "auto",
+		"search.smartCase": true,
+		"search.showLineNumbers": true,
+		// this also inherits the patterns in "files.exclude"
+		"search.exclude": {
+			"**/node_modules": true,
+			"**/bower_components": true
+		},
+		
+		"telemetry.enableTelemetry": false,
+		
+		"terminal.explorerKind": "integrated",
+		"terminal.integrated.enableBell": false,
+		"terminal.integrated.scrollback": 2000,
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"terminal.integrated.shell.windows": "powershell.exe",
+		
+		"workbench.editor.restoreViewState": true,
+		"workbench.tree.indent": 12,
+		"workbench.statusBar.feedback.visible": false,
+		"workbench.quickOpen.closeOnFocusLost": true,
+		"workbench.iconTheme": "material-icon-theme",
+		"workbench.colorTheme": "Codecourse Contrast (rainglow)",
+		"python.pythonPath": "/home/alex/.local/share/virtualenvs/irobot-interview-project-uMmbTu_8/bin/python",
+	},
+	"extensions": {
+		"recommendations": [
+			"pkief.material-icon-theme",
+			"daylerees.rainglow",
+			"coenraads.bracket-pair-colorizer",
+			"christian-kohler.path-intellisense",
+			"stkb.rewrap",
+			"auchenberg.vscode-browser-preview",
+			"ms-python.python",
+			"eamodio.gitlens"
+		],
+		"unwantedRecommendations": []
+	}
+}
