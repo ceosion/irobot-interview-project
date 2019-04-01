@@ -1,2 +1,4 @@
 .vscode/user-data/
 .vscode/extensions/
+
+__pycache__/

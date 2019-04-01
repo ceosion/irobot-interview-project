@@ -5,9 +5,12 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
+pytest = {version = "==4.3.0"}
+autopep8 = "*"
 
 [packages]
 colorlog = "*"
+requests = "*"
 
 [requires]
 python_version = "2.7"
