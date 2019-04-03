@@ -2,5 +2,7 @@
 .vscode/extensions/
 
 __pycache__/
+**/*.pyc
+
 secrets/
 
