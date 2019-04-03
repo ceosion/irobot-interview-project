@@ -106,7 +106,8 @@
 			"stkb.rewrap",
 			"auchenberg.vscode-browser-preview",
 			"ms-python.python",
-			"eamodio.gitlens"
+			"eamodio.gitlens",
+			"yzhang.markdown-all-in-one"
 		],
 		"unwantedRecommendations": []
 	}
