@@ -2,3 +2,5 @@
 .vscode/extensions/
 
 __pycache__/
+secrets/
+
