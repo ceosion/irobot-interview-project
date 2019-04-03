@@ -7,6 +7,8 @@ Author: Alex Richard Ford (arf4188@gmail.com)
 
 import urllib
 import urlparse
+import colorlog
+import requests
 
 # All search requests should be made to the search API URL.
 _QUERY_ENDPOINT = "https://www.food2fork.com/api/search"
@@ -21,9 +23,12 @@ class Food2ForkAPI:
     requests made by this instance.
     """
 
+    _log = None
+
     def __init__(self, api_key):
         """Constructs a new Food2Fork API instance using the provided `api_key`."""
         self._api_key = api_key
+        self._log = colorlog.getLogger("food_finder.{}".format(__name__))
 
 
     def _add_api_key_param(self, params):
@@ -32,9 +37,12 @@ class Food2ForkAPI:
 
 
     def _add_query_param(self, query, params):
-        """Private function for adding the 'query' param correctly."""
-        assert type(query) is str
-        params['q'] = query
+        """Private function for adding the 'query' param correctly. The query
+        argument to this method should be a list of ingredient strings which
+        will be formatted appropriately for the Food2Fork API (comma delimited)."""
+        assert type(query) is list, "`query` argument should be a list, but was: {}".format(query)
+        # TODO: format incoming query list as comma separated string
+        params['q'] = ",".join(query)
 
 
     def _add_sort_param(self, sort, params):
@@ -43,8 +51,8 @@ class Food2ForkAPI:
         params['sort'] = sort
     
 
-    def build_query_endpoint_url(self,
-                                 query="",
+    def _build_query_endpoint_url(self,
+                                 query=[""],
                                  sort="r",
                                  page=None):
         """Builds a Query Endpoint URL for the Food2Fork API using the provided
@@ -60,7 +68,7 @@ class Food2ForkAPI:
         return "{}?{}".format(url, encodedParams)
     
 
-    def build_recipe_details_endpoint_url(self,
+    def _build_recipe_details_endpoint_url(self,
                                           query=None,
                                           sort=None,
                                           page=None):
@@ -69,6 +77,10 @@ class Food2ForkAPI:
 
     def query_recipe(self, ingredients):
         """Provides the most popular recipe that contains all of the specified
-        ingredients."""
-        raise NotImplementedError()
+        ingredients. The `ingredients` argument should be a list containing one
+        or more of the ingredients desired."""
+        url = self._build_query_endpoint_url(query=ingredients)
+        self._log.debug("Built Query URL: {}".format(url))
+        response = requests.get(url)
+        self._log.debug("{}".format(response.json()))
 

@@ -13,6 +13,7 @@ import requests
 import os
 
 from enable_debug_action import EnableDebugAction
+from food2fork_api import Food2ForkAPI
 
 _prog_exec_name = os.path.basename(__file__)
 _prog_friendly_name = "Food Finder"
@@ -69,6 +70,8 @@ def main():
     args = arg_parser.parse_args()
 
     _log.debug("Received: {}".format(args))
+    f2f_api = Food2ForkAPI(args.f2f_api_key)
+    f2f_api.query_recipe(args.ingredients)
 
 
 if __name__ == "__main__":
