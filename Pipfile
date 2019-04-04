@@ -14,3 +14,7 @@ requests = "*"
 
 [requires]
 python_version = "2.7"
+
+[scripts]
+food_finder = "python food_finder/food_finder.py"
+test = "pytest -s"
