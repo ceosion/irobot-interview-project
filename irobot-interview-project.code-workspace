@@ -43,11 +43,14 @@
 			"**/.DS_Store": true
 		},
 		"files.watcherExclude": {
+			"**/__pycache__/**": true,
 			"**/.git/objects/**": true,
 			"**/.git/subtree-cache/**": true,
-			"**/node_modules/**": true,
+			"**/.pytest_cache/**": true,
+			"**/.vscode/**": true,
 			"**/.vscode/extensions/**": true,
-			"**/.vscode/user-data/**": true
+			"**/.vscode/user-data/**": true,
+			"**/node_modules/**": true
 		},
 		
 		"git.showPushSuccessNotification": true,
@@ -94,8 +97,9 @@
 		"workbench.statusBar.feedback.visible": false,
 		"workbench.quickOpen.closeOnFocusLost": true,
 		"workbench.iconTheme": "material-icon-theme",
-		"workbench.colorTheme": "Codecourse Contrast (rainglow)",
+		"workbench.colorTheme": "Codecourse (rainglow)",
 		"python.pythonPath": "/home/alex/.local/share/virtualenvs/irobot-interview-project-uMmbTu_8/bin/python",
+		"files.defaultLanguage": "python",
 	},
 	"extensions": {
 		"recommendations": [
