@@ -33,24 +33,21 @@ def test_build_query_endpoint_url():
     with pytest.raises(AssertionError):
         urlActual = api._build_query_endpoint_url(5)
     
-    # Subtest 2: query may be left empty, which defaults to q="", and is a valid
-    # API request.
+    # Now let's test for the nominal/expected behavior
     urlActual = api._build_query_endpoint_url()
     
     parseResult = urlparse.urlparse(urlActual)
     _log.debug("parseResults = {}".format(parseResult))
     queryParams = urlparse.parse_qs(parseResult.query)
     _log.debug("queryParams = {}".format(queryParams))
-    assert queryParams.has_key("key"), "Missing API Key (query param 'key')!"
-    assert queryParams["key"][0] == _KEY, "API Key did not match what was provided!"
-    assert queryParams.has_key("sort"), "Missing query param 'sort'!"
-    assert queryParams["sort"][0] == "r", "Query param 'sort' did not have expected value 'r'!"
-    
-    # urlExpected = "{}?key={}".format(food2fork_api._QUERY_ENDPOINT,
-    #                                  _KEY)
-    # _log.info("Asserting that '{}' equals '{}'".format(urlActual, urlExpected))
-    #assert urlActual == urlExpected    
-    
+    assert queryParams.has_key("key"), \
+        "Missing API Key (query param 'key')!"
+    assert queryParams["key"][0] == _KEY, \
+        "API Key did not match what was provided!"
+    assert queryParams.has_key("sort"), \
+        "Missing query param 'sort'!"
+    assert queryParams["sort"][0] == "r", \
+        "Query param 'sort' did not have expected value 'r'!" 
 
 
 def test_build_recipe_details_endpoint_url():
