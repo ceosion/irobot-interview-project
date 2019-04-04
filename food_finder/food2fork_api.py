@@ -41,7 +41,6 @@ class Food2ForkAPI:
         argument to this method should be a list of ingredient strings which
         will be formatted appropriately for the Food2Fork API (comma delimited)."""
         assert type(query) is list, "`query` argument should be a list, but was: {}".format(query)
-        # TODO: format incoming query list as comma separated string
         params['q'] = ",".join(query)
 
 
@@ -58,7 +57,9 @@ class Food2ForkAPI:
         """Builds a Query Endpoint URL for the Food2Fork API using the provided
         parameter values. An empty query may be specified (as is the default)
         which will simply return the current most popular recipes."""
+        # initialize 'url' with the correct base URL
         url = _QUERY_ENDPOINT
+        # create empty dict that we will then fill with our URL query parameters
         params = {}
         self._add_api_key_param(params)
         self._add_query_param(query, params)

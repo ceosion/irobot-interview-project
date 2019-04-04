@@ -7,6 +7,7 @@ Author: Alex Richard Ford (arf4188@gmail.com)
 
 import pytest
 import colorlog
+import urlparse
 
 from food_finder import food2fork_api
 
@@ -35,10 +36,21 @@ def test_build_query_endpoint_url():
     # Subtest 2: query may be left empty, which defaults to q="", and is a valid
     # API request.
     urlActual = api._build_query_endpoint_url()
-    urlExpected = "{}?key={}".format(food2fork_api._QUERY_ENDPOINT,
-                                     _KEY)
-    _log.info("Asserting that '{}' equals '{}'".format(urlActual, urlExpected))
-    assert urlActual == urlExpected
+    
+    parseResult = urlparse.urlparse(urlActual)
+    _log.debug("parseResults = {}".format(parseResult))
+    queryParams = urlparse.parse_qs(parseResult.query)
+    _log.debug("queryParams = {}".format(queryParams))
+    assert queryParams.has_key("key"), "Missing API Key (query param 'key')!"
+    assert queryParams["key"][0] == _KEY, "API Key did not match what was provided!"
+    assert queryParams.has_key("sort"), "Missing query param 'sort'!"
+    assert queryParams["sort"][0] == "r", "Query param 'sort' did not have expected value 'r'!"
+    
+    # urlExpected = "{}?key={}".format(food2fork_api._QUERY_ENDPOINT,
+    #                                  _KEY)
+    # _log.info("Asserting that '{}' equals '{}'".format(urlActual, urlExpected))
+    #assert urlActual == urlExpected    
+    
 
 
 def test_build_recipe_details_endpoint_url():
