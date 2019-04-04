@@ -82,5 +82,10 @@ class Food2ForkAPI:
         url = self._build_query_endpoint_url(query=ingredients)
         self._log.debug("Built Query URL: {}".format(url))
         response = requests.get(url)
+        if response.status_code != 200:
+            raise RuntimeError("The response from Food2Fork indicates a "
+                               "problem with status code '{}' and message '{}'."
+                               .format(response.status_code, response.reason))
         self._log.debug("{}".format(response.json()))
+
 
