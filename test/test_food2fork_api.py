@@ -47,7 +47,7 @@ def test_build_query_endpoint_url():
     assert queryParams.has_key("sort"), \
         "Missing query param 'sort'!"
     assert queryParams["sort"][0] == "r", \
-        "Query param 'sort' did not have expected value 'r'!" 
+        "Query param 'sort' did not have expected value 'r'!"
 
 
 def test_build_recipe_details_endpoint_url():

@@ -9,6 +9,7 @@ import urllib
 import urlparse
 import colorlog
 import requests
+import json
 
 # All search requests should be made to the search API URL.
 _QUERY_ENDPOINT = "https://www.food2fork.com/api/search"
@@ -56,7 +57,9 @@ class Food2ForkAPI:
                                  page=None):
         """Builds a Query Endpoint URL for the Food2Fork API using the provided
         parameter values. An empty query may be specified (as is the default)
-        which will simply return the current most popular recipes."""
+        which will simply return the current most popular recipes. The 'sort'
+        query parameter is set to default to 'r' which means receipes returned
+        will be sorted by social media rating."""
         # initialize 'url' with the correct base URL
         url = _QUERY_ENDPOINT
         # create empty dict that we will then fill with our URL query parameters
@@ -87,6 +90,17 @@ class Food2ForkAPI:
             raise RuntimeError("The response from Food2Fork indicates a "
                                "problem with status code '{}' and message '{}'."
                                .format(response.status_code, response.reason))
-        self._log.debug("{}".format(response.json()))
+        r_json = response.json()
+        self._log.debug("{}".format(r_json))
+        # our JSON response should already be sorted by 'popularity' thanks to
+        # the sort='r' query param. Now we just need to find one that contains
+        # all of the specified ingreidents.
+        # r_dict = json.loads(r_json)
+        #self._log.debug("{}".format(r_dict))
+        self._log.debug("r_json['count'] = {}".format(r_json["count"]))
+        selected_recipe = r_json['recipes'][0]
+        self._log.debug("selected_recipe = {}".format(selected_recipe))
 
+        # TODO: Fetch the full recipe from Food2Fork
 
+        # TODO: Once found, we need to display the missing ingredients to the user.
