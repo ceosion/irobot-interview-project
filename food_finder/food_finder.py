@@ -71,7 +71,15 @@ def main():
 
     _log.debug("Received: {}".format(args))
     f2f_api = Food2ForkAPI(args.f2f_api_key)
-    f2f_api.query_recipe(args.ingredients)
+    recipe_result = f2f_api.query_recipe(args.ingredients)
+
+    # TODO: this is OK for now, and meets the requirements of the project, but
+    # it has some usability concerns, namely: the user doesn't necessarily know
+    # the amounts of the specified ingredients since we are only showing the
+    # missing ingredients. (Maybe doing something like a full ingredients list
+    # with markers to indicate the matching or missing ones would be better?)
+    _log.info("Based on the ingredients specified, '{}' is the most popular recipe on Food2Fork!".format(recipe_result["title"]))
+    _log.info("In addition to the specified ingredients, you will also need:\n\t{}".format("\n\t".join(recipe_result["missing_ingredients"])))
 
 
 if __name__ == "__main__":
