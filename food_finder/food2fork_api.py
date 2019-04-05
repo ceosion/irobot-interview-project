@@ -50,6 +50,11 @@ class Food2ForkAPI:
         assert type(sort) is str
         params['sort'] = sort
     
+    def _add_recipe_id_param(self, rId, params):
+        """Private function for adding the 'recipe ID' param correctly."""
+        assert (type(rId) is str) or (type(rId) is int) or (type(rId) is unicode), "Invalid type for 'rId', received type: {}".format(type(rId))
+        params['rId'] = rId
+    
 
     def _build_query_endpoint_url(self,
                                  query=[""],
@@ -73,10 +78,15 @@ class Food2ForkAPI:
     
 
     def _build_recipe_details_endpoint_url(self,
-                                          query=None,
-                                          sort=None,
-                                          page=None):
-        return "{}?key={}".format(_RECIPE_DETAILS_ENDPOINT, self._api_key)
+                                           recipe_id):
+        # initialized 'url' with the correct base URL
+        url = _RECIPE_DETAILS_ENDPOINT
+        # start with empty dict, fill with needed query params
+        params = {}
+        self._add_api_key_param(params)
+        self._add_recipe_id_param(recipe_id, params)
+        encodedParams = urllib.urlencode(params)
+        return "{}?{}".format(url, encodedParams)
     
 
     def query_recipe(self, ingredients):
@@ -95,12 +105,24 @@ class Food2ForkAPI:
         # our JSON response should already be sorted by 'popularity' thanks to
         # the sort='r' query param. Now we just need to find one that contains
         # all of the specified ingreidents.
-        # r_dict = json.loads(r_json)
-        #self._log.debug("{}".format(r_dict))
         self._log.debug("r_json['count'] = {}".format(r_json["count"]))
         selected_recipe = r_json['recipes'][0]
         self._log.debug("selected_recipe = {}".format(selected_recipe))
+        
+        selected_rId = selected_recipe["recipe_id"]
+        self._log.debug("Selected recipe ID is: {}".format(selected_rId))
 
-        # TODO: Fetch the full recipe from Food2Fork
+        # Fetch the full recipe from Food2Fork
+        url = self._build_recipe_details_endpoint_url(selected_rId)
+        self._log.debug("url = {}".format(url))
+
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise RuntimeError("The response from Food2Fork's Recipe Endpoint "
+                               "indicates a problem with status code '{}' and "
+                               "message '{}'.".format(response.status_code,
+                               response.reason))
+        r_json = response.json()
+        self._log.debug("{}".format(r_json))
 
         # TODO: Once found, we need to display the missing ingredients to the user.
