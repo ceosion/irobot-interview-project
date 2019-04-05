@@ -131,6 +131,7 @@ class Food2ForkAPI:
                            'missing_ingredients' attribute which is the
                            difference between the specified `ingredients` and
                            the ones needed by the recipe.
+                           'None' is returned if there were no results.
         """
         url = self._build_query_endpoint_url(query=ingredients)
         self._log.debug("Built Query URL: {}".format(url))
@@ -140,11 +141,15 @@ class Food2ForkAPI:
                                "problem with status code '{}' and message '{}'."
                                .format(response.status_code, response.reason))
         r_json = response.json()
-        self._log.debug("{}".format(r_json))
+        self._log.debug("r_json = {}".format(r_json))
+
         # our JSON response should already be sorted by 'popularity' thanks to
-        # the sort='r' query param. Now we just need to find one that contains
-        # all of the specified ingreidents.
+        # the sort='r' query param, so as long as we have results, the one we
+        # want should just be the first item!
         self._log.debug("r_json['count'] = {}".format(r_json["count"]))
+        if r_json["count"] == 0:
+            return None
+
         selected_recipe = r_json['recipes'][0]
         self._log.debug("selected_recipe = {}".format(selected_recipe))
         

@@ -1,14 +1,15 @@
 iRobot Interview Project
 ========================
 
-Leverages the [Food2Fork API](https://www.food2fork.com/about/api) in order to search for recipes based on ingredients the user specifies to a command line application.
+A command-line application that leverages the [Food2Fork API](https://www.food2fork.com/about/api) in order to find the most popular recipe based on ingredients the user specifies.
 
-See the [Take Home Assignment](./docs/take-home-assignment.md) page for the original assignment text.
+See the [Take Home Assignment](./docs/take-home-assignment.md) doc for the original assignment text.
 
 **Table of Contents**
 - [iRobot Interview Project](#irobot-interview-project)
 - [What You'll Need](#what-youll-need)
 - [Quick Start](#quick-start)
+  - [Obtain the Source Code](#obtain-the-source-code)
   - [Using the application](#using-the-application)
   - [Development](#development)
   - [Testing](#testing)
@@ -28,28 +29,33 @@ See the [Take Home Assignment](./docs/take-home-assignment.md) page for the orig
 
 # Quick Start
 
-## Using the application
-
-This application is a command line-based utility and so you will need to use it from one. Bash is recommended, and the instructions here are written with Bash in mind.
+## Obtain the Source Code
 
 ```bash
-git clone ...
-cd irobot-interview-project
-pipenv install
-pipenv run python food_finder/food_finder.py --f2f_api_key "enter-your-API-key-here" "ingredient 1" "ingredient 2" ...
+git clone https://github.com/ceosion/irobot-interview-project.git
+cd ./irobot-interview-project/
 ```
 
-Built-in help may be accessed with the command:
+## Using the application
+
+This application is a command-line interface and so you will need to use it from one. Bash is recommended, and the instructions here are written with Bash in mind.
 
 ```bash
-pipenv run python food_finder/food_finder.py --help
+pipenv install
+pipenv run food_finder --f2f_api_key "enter-your-API-key-here" "ingredient 1" "ingredient 2" ...
+```
+
+Display the built-in help using:
+
+```bash
+pipenv run food_finder --help
 ```
 
 Your Food2Fork API Key may also be placed in a file so you don't have to specify it as an argument to the program. See the [Sensitive Data](#sensitive-data) section for more details.
 
 ## Development
 
-This project was developed using [Visual Studio Code](https://code.visualstudio.com). `start-vscode` scripts have been provided which will launch Visual Studio Code (VS Code) in an isolated environment separate from any existing user installation(s). The first step is to ensure you have the needed software: Python 2.7+, Pipenv, and VS Code. Then you can execute the following commands:
+This project was developed using [Visual Studio Code](https://code.visualstudio.com). `start-vscode` scripts have been provided which will launch Visual Studio Code (VS Code) in an isolated environment separate from any existing user installation(s). The first step is to ensure you have the needed software (see the [What You'll Need](#what-youll-need) section above). Then you can execute the following commands:
 
 ```bash
 pipenv install --dev
@@ -64,6 +70,12 @@ Unit tests leverage the [pytest](https://docs.pytest.org/en/latest/) framework. 
 
 ```bash
 pipenv run pytest -s
+```
+
+or with:
+
+```bash
+pipenv run test
 ```
 
 ## Coverage
@@ -93,5 +105,5 @@ The following is a list of problems or nuances that apply to this application, w
     * A trivial refactoring could be done to move all sensitive files out of the applciation's project directory entirely, thus increasing the degree of separation between sensitive and non-sensitive files. (e.g. move `./secrets/` to `../food_finder_secrets/`)
     * The data in `./secrets/` is not shared with the team in an defined way, at the moment. There are many ways to accomplish this, but one possible way is to archive and encrypt the sensitive files and actually commit the encrypted archive to Git. This is especially useful when sharing things like SSL certs and other non-user-specific sensitive files (i.e. not just a single API key file, which is specific to a user anyway). Then, the only thing that needs to be shared with team members is the password used to encrypt the sensitive data archive. (`git-crypt` and other tools can also be used to accomplish similar results.)
 
-  * At least one of the tests requires a valid API key and access to the actual Food2Fork API in order to pass.
-      * This makes automated testing more difficult. The API could be mocked in order to provide an isolated/offline environment for the test to run without the need for a real API key or the real Food2Fork API.
+* At least one of the tests requires a valid API key and access to the actual Food2Fork API in order to pass.
+    * This makes automated testing more difficult. The API could be mocked in order to provide an isolated/offline environment for the test to run without the need for a real API key or the real Food2Fork API.

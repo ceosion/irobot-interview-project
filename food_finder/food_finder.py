@@ -78,8 +78,11 @@ def main():
     # the amounts of the specified ingredients since we are only showing the
     # missing ingredients. (Maybe doing something like a full ingredients list
     # with markers to indicate the matching or missing ones would be better?)
-    _log.info("Based on the ingredients specified, '{}' is the most popular recipe on Food2Fork!".format(recipe_result["title"]))
-    _log.info("In addition to the specified ingredients, you will also need:\n\t{}".format("\n\t".join(recipe_result["missing_ingredients"])))
+    if recipe_result != None:
+        _log.info("Based on the ingredients specified, the most popular recipe on Food2Fork is:\n\t'{}'".format(recipe_result["title"]))
+        _log.info("In addition to the specified ingredients, you will also need:\n\t{}".format("\n\t".join(recipe_result["missing_ingredients"])))
+    else:
+        _log.warn("No results found for recipes containing: {}".format(args.ingredients))
 
 
 if __name__ == "__main__":
