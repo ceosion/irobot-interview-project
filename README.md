@@ -12,6 +12,7 @@ See the [Take Home Assignment](./docs/take-home-assignment.md) page for the orig
   - [Using the application](#using-the-application)
   - [Development](#development)
   - [Testing](#testing)
+  - [Coverage](#coverage)
 - [Sensitive Data](#sensitive-data)
 - [Unaddressed Considerations / Known Problems](#unaddressed-considerations--known-problems)
 
@@ -63,6 +64,14 @@ Unit tests leverage the [pytest](https://docs.pytest.org/en/latest/) framework. 
 
 ```bash
 pipenv run pytest -s
+```
+
+## Coverage
+
+Code coverage can be calculated using:
+
+```bash
+pipenv run pytest --cov=food_finder test/
 ```
 
 See https://docs.pytest.org/en/latest/usage.html for additional information.
