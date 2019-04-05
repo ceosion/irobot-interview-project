@@ -73,4 +73,5 @@ def test_build_recipe_details_endpoint_url():
 def test_query_recipe():
     # TODO: provide way to mock the API instead of actually doing it!
     api = food2fork_api.Food2ForkAPI(_KEY)
-    api.query_recipe(["vanilla", "butter", "cream cheese"])
+    recipe = api.query_recipe(["vanilla", "butter", "cream cheese"])
+    _log.debug("recipe = {}".format(recipe))

@@ -10,6 +10,7 @@ import urlparse
 import colorlog
 import requests
 import json
+import re
 
 # All search requests should be made to the search API URL.
 _QUERY_ENDPOINT = "https://www.food2fork.com/api/search"
@@ -125,4 +126,20 @@ class Food2ForkAPI:
         r_json = response.json()
         self._log.debug("{}".format(r_json))
 
-        # TODO: Once found, we need to display the missing ingredients to the user.
+        # Once found, we need to display the missing ingredients to the user.
+        ingredients_list = r_json["recipe"]["ingredients"]
+        self._log.debug("ingredients_list = {}".format(ingredients_list))
+        # Subtract list items that contain our input ingredients
+        for input_ing in ingredients:
+            rexp = re.compile(".*{}.*".format(input_ing), re.IGNORECASE)
+            for needed_ing in ingredients_list: 
+                if rexp.match(needed_ing):
+                    self._log.debug("We have a match!")
+                    ingredients_list.remove(needed_ing)
+        self._log.debug("Missing ingredients are: {}".format(ingredients_list))
+
+        # Add the missing ingredients determined above as another attribute
+        # of the recipe object and return that
+        recipe = r_json["recipe"]
+        recipe["missing_ingredients"] = ingredients_list
+        return recipe
