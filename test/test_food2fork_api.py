@@ -71,7 +71,37 @@ def test_build_recipe_details_endpoint_url():
 
 
 def test_query_recipe():
-    # TODO: provide way to mock the API instead of actually doing it!
+    # TODO: provide way to mock the API instead of actually doing it against
+    # the real one!
     api = food2fork_api.Food2ForkAPI(_KEY)
-    recipe = api.query_recipe(["vanilla", "butter", "cream cheese"])
-    _log.debug("recipe = {}".format(recipe))
+    # TODO: the following test only works if we always get the 
+    # "Guiness Chocolate Cheesecake" as the actualRecipe... this is fine for
+    # now, but for long term, this isn't a good assumption... besides, mocking
+    # the API (see the TODO above) could take care of this problem!
+    actualRecipe = api.query_recipe(["vanilla", "butter", "cream cheese"])
+    _log.debug("recipe = {}".format(actualRecipe))
+    full_ingredients_list = [
+        "1 cup graham cracker crumbs",
+        "2 tablespoons cocoa powder",
+        "1 tablespoon sugar",
+        "12 ounces dark chocolate, chopped",
+        "2 tablespoons heavy cream",
+        "1 cup sugar",
+        "1/2 cup sour cream",
+        "3 eggs",
+        "3/4 cup Guinness\n"
+    ]
+    assert actualRecipe["ingredients"] == full_ingredients_list
+    missing_ingredients_list = [
+        "1 cup graham cracker crumbs",
+        "2 tablespoons cocoa powder",
+        "1 tablespoon sugar",
+        "12 ounces dark chocolate, chopped",
+        "2 tablespoons heavy cream",
+        "1 cup sugar",
+        "1/2 cup sour cream",
+        "3 eggs",
+        "3/4 cup Guinness\n"
+    ]
+    assert actualRecipe["missing_ingredients"] == missing_ingredients_list
+
